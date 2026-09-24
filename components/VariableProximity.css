@@ -1,0 +1,38 @@
+.variable-proximity {
+  font-family: inherit;
+}
+
+.variable-proximity-word,
+.variable-proximity-letter {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.variable-proximity-letter {
+  --proximity: 0;
+  transform: translateY(calc(var(--proximity) * -0.035em))
+    scaleX(calc(1 + var(--proximity) * 0.035))
+    scaleY(calc(1 + var(--proximity) * 0.14));
+  transform-origin: center bottom;
+  transition: transform 90ms linear;
+  will-change: transform, font-variation-settings;
+}
+
+.variable-proximity-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .variable-proximity-letter {
+    transform: none;
+    transition: none;
+  }
+}

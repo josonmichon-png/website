@@ -1,0 +1,141 @@
+.pointer-highlight {
+  position: relative;
+  width: fit-content;
+  isolation: isolate;
+}
+
+.pointer-highlight-outline {
+  position: absolute;
+  z-index: 4;
+  inset: -13px -22px -15px -16px;
+  pointer-events: none;
+  transform: rotate(-1.2deg);
+}
+
+.pointer-highlight-line {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background: #ff4b3e;
+  box-shadow: 2px 2px 0 rgba(9, 11, 12, 0.24);
+}
+
+.pointer-highlight-top,
+.pointer-highlight-bottom {
+  width: 100%;
+  height: 5px;
+  transform: scaleX(0);
+}
+
+.pointer-highlight-left,
+.pointer-highlight-right {
+  width: 5px;
+  height: 100%;
+  transform: scaleY(0);
+}
+
+.pointer-highlight-top {
+  left: 0;
+  top: 0;
+  transform-origin: left center;
+  animation: pointer-highlight-x 260ms 180ms ease-out forwards;
+}
+
+.pointer-highlight-right {
+  right: 0;
+  top: 0;
+  transform-origin: center top;
+  animation: pointer-highlight-y 210ms 420ms ease-out forwards;
+}
+
+.pointer-highlight-bottom {
+  right: 0;
+  bottom: 0;
+  transform-origin: right center;
+  animation: pointer-highlight-x 260ms 590ms ease-out forwards;
+}
+
+.pointer-highlight-left {
+  left: 0;
+  bottom: 0;
+  transform-origin: center bottom;
+  animation: pointer-highlight-y 210ms 830ms ease-out forwards;
+}
+
+.pointer-highlight-outline b {
+  position: absolute;
+  right: -11px;
+  bottom: -13px;
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #090b0c;
+  background: #fff04b;
+  color: #090b0c;
+  font-size: 0.72rem;
+  opacity: 0;
+  transform: scale(0.5) rotate(14deg);
+  animation: pointer-highlight-pop 220ms 990ms ease-out forwards;
+}
+
+.pointer-highlight:hover .pointer-highlight-outline {
+  filter: brightness(1.08);
+}
+
+.pointer-highlight:hover .pointer-highlight-line {
+  background: #0fb8c8;
+}
+
+@keyframes pointer-highlight-x {
+  to { transform: scaleX(1); }
+}
+
+@keyframes pointer-highlight-y {
+  to { transform: scaleY(1); }
+}
+
+@keyframes pointer-highlight-pop {
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(14deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .pointer-highlight-outline {
+    inset: -9px -10px -10px -8px;
+  }
+
+  .pointer-highlight-top,
+  .pointer-highlight-bottom {
+    height: 4px;
+  }
+
+  .pointer-highlight-left,
+  .pointer-highlight-right {
+    width: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pointer-highlight-line {
+    animation: none;
+  }
+
+  .pointer-highlight-top,
+  .pointer-highlight-bottom {
+    transform: scaleX(1);
+  }
+
+  .pointer-highlight-left,
+  .pointer-highlight-right {
+    transform: scaleY(1);
+  }
+
+  .pointer-highlight-outline b {
+    opacity: 1;
+    animation: none;
+    transform: scale(1) rotate(14deg);
+  }
+}

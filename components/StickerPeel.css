@@ -1,0 +1,92 @@
+.draggable-sticker {
+  position: absolute;
+  z-index: 1;
+  width: var(--sticker-width);
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+  transform: translateZ(0);
+}
+
+.draggable-sticker:active {
+  cursor: grabbing;
+}
+
+.sticker-peel-container {
+  --sticker-pad: 9px;
+  --sticker-start: calc(-1 * var(--sticker-pad));
+  --sticker-end: calc(100% + var(--sticker-pad));
+  position: relative;
+  width: var(--sticker-width);
+  transform: rotate(var(--peel-direction));
+  transform-origin: center;
+}
+
+.sticker-peel-container * {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sticker-main {
+  clip-path: polygon(var(--sticker-start) var(--sticker-start), var(--sticker-end) var(--sticker-start), var(--sticker-end) var(--sticker-end), var(--sticker-start) var(--sticker-end));
+  filter: var(--sticker-shadow-filter);
+  transition: clip-path 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sticker-lighting {
+  filter: var(--sticker-light-filter);
+}
+
+.sticker-image,
+.sticker-flap-image {
+  display: block;
+  width: var(--sticker-width);
+  height: auto;
+  transform: rotate(var(--sticker-rotate));
+}
+
+.sticker-flap {
+  position: absolute;
+  inset: calc(-100% - 18px) 0 auto;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(var(--sticker-start) var(--sticker-start), var(--sticker-end) var(--sticker-start), var(--sticker-end) var(--sticker-start), var(--sticker-start) var(--sticker-start));
+  transform: scaleY(-1);
+  transition: clip-path 0.56s cubic-bezier(0.22, 1, 0.36, 1), top 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sticker-flap-lighting {
+  filter: var(--sticker-flipped-filter);
+}
+
+.sticker-flap-image {
+  filter: var(--sticker-fill-filter);
+}
+
+.sticker-peel-container:hover .sticker-main,
+.sticker-peel-container.touch-active .sticker-main {
+  clip-path: polygon(var(--sticker-start) var(--sticker-peelback-hover), var(--sticker-end) var(--sticker-peelback-hover), var(--sticker-end) var(--sticker-end), var(--sticker-start) var(--sticker-end));
+}
+
+.sticker-peel-container:hover .sticker-flap,
+.sticker-peel-container.touch-active .sticker-flap {
+  top: calc(-100% + 2 * var(--sticker-peelback-hover) - 1px);
+  clip-path: polygon(var(--sticker-start) var(--sticker-start), var(--sticker-end) var(--sticker-start), var(--sticker-end) var(--sticker-peelback-hover), var(--sticker-start) var(--sticker-peelback-hover));
+}
+
+.sticker-peel-container:active .sticker-main {
+  clip-path: polygon(var(--sticker-start) var(--sticker-peelback-active), var(--sticker-end) var(--sticker-peelback-active), var(--sticker-end) var(--sticker-end), var(--sticker-start) var(--sticker-end));
+}
+
+.sticker-peel-container:active .sticker-flap {
+  top: calc(-100% + 2 * var(--sticker-peelback-active) - 1px);
+  clip-path: polygon(var(--sticker-start) var(--sticker-start), var(--sticker-end) var(--sticker-start), var(--sticker-end) var(--sticker-peelback-active), var(--sticker-start) var(--sticker-peelback-active));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticker-main,
+  .sticker-flap {
+    transition: none;
+  }
+}

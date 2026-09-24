@@ -1,0 +1,61 @@
+.comet-card {
+  --comet-rx: 0deg;
+  --comet-ry: 0deg;
+  --comet-x: 50%;
+  --comet-y: 50%;
+  --comet-strength: 0;
+  position: relative;
+  perspective: 900px;
+  outline: none;
+  cursor: pointer;
+}
+
+.comet-card-surface {
+  position: relative;
+  z-index: 1;
+  transform: rotateX(var(--comet-rx)) rotateY(var(--comet-ry)) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 160ms ease-out, filter 220ms ease;
+  will-change: transform;
+}
+
+.comet-card:hover .comet-card-surface,
+.comet-card:focus-visible .comet-card-surface {
+  filter: saturate(1.08) contrast(1.03);
+}
+
+.comet-card-glow {
+  position: absolute;
+  z-index: 2;
+  inset: 3px;
+  border-radius: 14px;
+  background:
+    radial-gradient(
+      circle at var(--comet-x) var(--comet-y),
+      rgba(255, 255, 255, 0.52) 0,
+      rgba(255, 240, 75, 0.2) 18%,
+      transparent 47%
+    );
+  opacity: calc(var(--comet-strength) * 0.72);
+  mix-blend-mode: screen;
+  transform: translateZ(24px);
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.comet-card:focus-visible {
+  outline: 4px solid #fff04b;
+  outline-offset: 7px;
+  border-radius: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comet-card-surface {
+    transform: none;
+    transition: none;
+  }
+
+  .comet-card-glow {
+    display: none;
+  }
+}
